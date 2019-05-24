@@ -29,12 +29,12 @@ public class ScrapingController {
 	@RequestMapping("/parse")
 	public String htmlPasrse() {
 
-		//項目名のリストを作成
+		// 項目名のリストを作成
 		List<String> menuList = new ArrayList<String>(
 				Arrays.asList(settingConst.FAIR, settingConst.KANDOU, settingConst.YAKITORI, settingConst.IPPIN,
 						settingConst.SARADA, settingConst.GOHAN_DESSERT, settingConst.DRINK));
 
-		//出力パスのリストを作成
+		// 出力パスのリストを作成
 		List<String> outputPathList = new ArrayList<String>(
 				Arrays.asList(settingConst.FAIR＿PATH, settingConst.KANDOU＿PATH,
 						settingConst.YAKITORI＿PATH, settingConst.IPPIN＿PATH, settingConst.SARADA＿PATH,
@@ -42,10 +42,10 @@ public class ScrapingController {
 
 		try {
 
-			//パースするページのリスト用意
+			// パースするページのリスト用意
 			List<Document> ParseDocumentList = new ArrayList<Document>();
 
-			//メニューページをパース
+			// メニューページをパースしリストに追加
 			ParseDocumentList.add(Jsoup.connect(settingConst.FAIR_MENU_URL).get());
 			ParseDocumentList.add(Jsoup.connect(settingConst.KANDOU_MENU_URL).get());
 			ParseDocumentList.add(Jsoup.connect(settingConst.YAKITORI_MENU_URL).get());
@@ -62,7 +62,6 @@ public class ScrapingController {
 			}
 
 			int count = 0;
-
 			for (String key : menuMap.keySet()) {
 
 				//メニュー名を格納するリスト生成
@@ -83,9 +82,6 @@ public class ScrapingController {
 
 				count++;
 			}
-
-
-			//System.out.println(document.html());
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
@@ -101,15 +97,16 @@ public class ScrapingController {
 		FileWriter fw = null;
 		BufferedWriter bf = null;
 		try {
-			//FileWriterを上書き形式で生成
+			// FileWriterを上書き形式で生成
 			fw = new FileWriter(path);
 			bf = new BufferedWriter(fw);
 			if (fw != null) {
 				StringBuilder sb = new StringBuilder();
 				for (String menuName : menuNameList) {
+					//「キー,メニュー名」の形式で追加
 					sb.append(key).append(",").append(menuName).append("\n");
 				}
-				//メニュー名をファイルに書き込み
+				// 書き込み
 				bf.write(sb.toString());
 				bf.flush();
 			}
