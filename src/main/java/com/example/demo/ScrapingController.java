@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-public class HelloController {
+public class ScrapingController {
 
 	public static final String OUTPUT_FILE_PATH = "C:\\work_new\\demo\\menuName.csv";
 
